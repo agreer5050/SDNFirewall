@@ -28,27 +28,86 @@
 #2,Allow,-,-,10.0.0.1/32,10.0.1.125/32,6,-,80,Allow 10.0.0.1 to access a web server on 10.0.1.125 overriding previous rule
 
 #################### Task 1 #####################
-# hq1
-1,Block,-,-,10.0.0.0/8,10.0.0.1/32,6,-,-,By default block all TCP traffic on hq1
-2,Block,-,-,10.0.0.0/8,10.0.0.1/32,17,-,-,By default block all UDP traffic on hq1
+# hq1 10.0.0.1
+1,Block,-,-,10.0.0.0/16,10.0.0.1/32,17,-,53,By default block all UDP/53 traffic on hq1
+1,Block,-,-,10.0.0.0/16,10.0.0.1/32,17,-,853,By default block all UDP/853 traffic on hq1
 
 3,Allow,-,-,-,10.0.0.1/32,17,-,53,Allow all UDP/53 to hq1
 4,Allow,-,-,-,10.0.0.1/32,17,-,853,Allow all UDP/853 to hq1
 
-#hq2
-5,Block,-,-,10.0.0.0/8,10.0.0.2/32,6,-,-,By default block all TCP traffic on hq2
-6,Block,-,-,10.0.0.0/8,10.0.0.2/32,17,-,-,By default block all UDP traffic on hq2
+#hq2 10.0.0.2
+5,Block,-,-,10.0.0.0/16,10.0.0.2/32,17,-,53,By default block all UDP/53 traffic on hq2
+5,Block,-,-,10.0.0.0/16,10.0.0.2/32,17,-,853,By default block all UDP/853 traffic on hq2
 
-7,Allow,-,-,10.0.1.0/24,10.0.0.1/32,17,-,53,Allow US subnet to use UDP/53 on hq2
-8,Allow,-,-,10.0.30.0/24,10.0.0.1/32,17,-,53,Allow CN subnet to use UDP/53 on hq2
-9,Allow,-,-,10.0.20.0/24,10.0.0.1/32,17,-,53,Allow IN subnet to use UDP/53 on hq2
-10,Allow,-,-,10.0.40.0/24,10.0.0.1/32,17,-,53,Allow UI subnet to use UDP/53 on hq2
-11,Allow,-,-,10.0.0.0/24,10.0.0.1/32,17,-,53,Allow HQ subnet to use UDP/53 on hq2
+7,Allow,-,-,10.0.1.0/24,10.0.0.2/32,17,-,53,Allow US subnet to use UDP/53 on hq2
+8,Allow,-,-,10.0.30.0/24,10.0.0.2/32,17,-,53,Allow CN subnet to use UDP/53 on hq2
+9,Allow,-,-,10.0.20.0/24,10.0.0.2/32,17,-,53,Allow IN subnet to use UDP/53 on hq2
+10,Allow,-,-,10.0.40.0/24,10.0.0.2/32,17,-,53,Allow UI subnet to use UDP/53 on hq2
+11,Allow,-,-,10.0.0.0/24,10.0.0.2/32,17,-,53,Allow HQ subnet to use UDP/53 on hq2
 
-12,Allow,-,-,10.0.1.0/24,10.0.0.1/32,17,-,853,Allow US subnet to use UDP/853 on hq2
-13,Allow,-,-,10.0.30.0/24,10.0.0.1/32,17,-,853,Allow CN subnet to use UDP/853 on hq2
-14,Allow,-,-,10.0.20.0/24,10.0.0.1/32,17,-,853,Allow IN subnet to use UDP/853 on hq2
-15,Allow,-,-,10.0.40.0/24,10.0.0.1/32,17,-,853,Allow UI subnet to use UDP/853 on hq2
-16,Allow,-,-,10.0.0.0/24,10.0.0.1/32,17,-,853,Allow HQ subnet to use UDP/853 on hq2
+12,Allow,-,-,10.0.1.0/24,10.0.0.2/32,17,-,853,Allow US subnet to use UDP/853 on hq2
+13,Allow,-,-,10.0.30.0/24,10.0.0.2/32,17,-,853,Allow CN subnet to use UDP/853 on hq2
+14,Allow,-,-,10.0.20.0/24,10.0.0.2/32,17,-,853,Allow IN subnet to use UDP/853 on hq2
+15,Allow,-,-,10.0.40.0/24,10.0.0.2/32,17,-,853,Allow UI subnet to use UDP/853 on hq2
+16,Allow,-,-,10.0.0.0/24,10.0.0.2/32,17,-,853,Allow HQ subnet to use UDP/853 on hq2
 
 #################### Task 2 #####################
+
+#hq3 10.0.0.60
+17,Block,-,-,10.0.0.0/16,10.0.0.60/32,6,-,1194,By default block all UDP 1194 traffic on hq3
+17,Block,-,-,10.0.0.0/16,10.0.0.60/32,17,-,1194,By default block all TCP 1194 traffic on hq3
+
+18,Allow,-,-,10.0.1.33/32,10.0.0.60/32,6,-,1194,Allow us3 to use UDP port 1194 on hq3
+19,Allow,-,-,10.0.1.33/32,10.0.0.60/32,17,-,1194,Allow us3 to use TCP port 1194 on hq3
+20,Allow,-,-,10.0.40.129/32,10.0.0.60/32,6,-,1194,Allow uk3 to use UDP port 1194 on hq3
+21,Allow,-,-,10.0.40.129/32,10.0.0.60/32,17,-,1194,Allow uk3 to use TCP port 1194 on hq3
+22,Allow,-,-,10.0.20.3/32,10.0.0.60/32,6,-,1194,Allow in3 to use UDP port 1194 on hq3
+23,Allow,-,-,10.0.20.3/32,10.0.0.60/32,17,-,1194,Allow in3 to use TCP port 1194 on hq3
+24,Allow,-,-,10.0.30.3/32,10.0.0.60/32,6,-,1194,Allow cn3 to use UDP port 1194 on hq3
+25,Allow,-,-,10.0.30.3/32,10.0.0.60/32,17,-,1194,Allow cn3 to use TCP port 1194 on hq3
+
+#################### Task 3 #####################
+
+18,Allow,-,-,-,10.0.0.0/24,1,-,-,Allow any ICMP to HQ
+18,Allow,-,-,10.0.0.0/24,-,1,-,-,Allow any ICMP from HQ
+17,Block,-,-,-,10.0.1.0/24,1,-,-,Block all ICMP to US
+17,Block,-,-,-,10.0.20.0/24,1,-,-,Block all ICMP to IN
+17,Block,-,-,-,10.0.30.0/24,1,-,-,Block all ICMP to CN
+17,Block,-,-,-,10.0.40.0/24,1,-,-,Block all ICMP to UK
+
+#################### Task 4 #####################
+
+17,Block,-,-,-,10.0.0.0/16,6,-,3389,Block all TCP 3389
+17,Block,-,-,-,10.0.0.0/16,6,-,5900,Block all TCP 5900
+17,Allow,-,-,10.0.0.0/24,10.0.0.0/16,6,-,3389,Allow TCP 3389 from HQ networks
+17,Allow,-,-,10.0.0.0/24,10.0.0.0/16,6,-,5900,Allow TCP 5900 from HQ networks
+17,Allow,-,-,10.0.1.0/24,10.0.0.0/16,6,-,3389,Allow TCP 3389 from US networks
+17,Allow,-,-,10.0.1.0/24,10.0.0.0/16,6,-,5900,Allow TCP 5900 from US networks
+17,Allow,-,-,10.0.20.0/24,10.0.0.0/16,6,-,3389,Allow TCP 3389 from IN networks
+17,Allow,-,-,10.0.20.0/24,10.0.0.0/16,6,-,5900,Allow TCP 5900 from IN networks
+17,Allow,-,-,10.0.30.0/24,10.0.0.0/16,6,-,3389,Allow TCP 3389 from CN networks
+17,Allow,-,-,10.0.30.0/24,10.0.0.0/16,6,-,5900,Allow TCP 5900 from CN networks
+17,Allow,-,-,10.0.40.0/24,10.0.0.0/16,6,-,3389,Allow TCP 3389 from UK networks
+17,Allow,-,-,10.0.40.0/24,10.0.0.0/16,6,-,5900,Allow TCP 5900 from UK networks
+
+5,Block,-,-,10.0.0.0/16,10.0.0.2/32,17,-,53,By default block all UDP/53 traffic on hq2
+
+#################### Task 5 #####################
+17,Block,-,-,10.0.40.128/32,10.0.1.33/32,6,-,8510,Block uk2 to us3
+17,Block,-,-,10.0.40.128/32,10.0.1.34/32,6,-,8510,Block uk2 to us4
+17,Block,-,-,10.0.40.129/32,10.0.1.33/32,6,-,8510,Block uk3 to us3
+17,Block,-,-,10.0.40.129/32,10.0.1.34/32,6,-,8510,Block uk3 to us4
+17,Block,-,-,10.0.40.130/32,10.0.1.33/32,6,-,8510,Block uk4 to us3
+17,Block,-,-,10.0.40.130/32,10.0.1.34/32,6,-,8510,Block uk4 to us4
+17,Block,-,-,10.0.40.131/32,10.0.1.33/32,6,-,8510,Block uk5 to us3
+17,Block,-,-,10.0.40.131/32,10.0.1.34/32,6,-,8510,Block uk5 to us4
+17,Block,-,-,10.0.20.126/32,10.0.1.33/32,6,-,8510,Block in4 to us3
+17,Block,-,-,10.0.20.126/32,10.0.1.34/32,6,-,8510,Block in4 to us4
+17,Block,-,-,10.0.20.125/32,10.0.1.33/32,6,-,8510,Block in5 to us3
+17,Block,-,-,10.0.20.125/32,10.0.1.34/32,6,-,8510,Block in5 to us4
+17,Block,-,-,10.0.1.125/32,10.0.1.33/32,6,-,8510,Block us5 to us3
+17,Block,-,-,10.0.1.125/32,10.0.1.34/32,6,-,8510,Block us5 to us4
+17,Block,-,-,10.0.40.131/32,10.0.1.33/32,6,-,8510,Block uk5 to us3
+17,Block,-,-,10.0.40.131/32,10.0.1.34/32,6,-,8510,Block uk5 to us4
+17,Block,-,-,10.0.0.220/32,10.0.1.33/32,6,-,8510,Block hq5 to us3
+17,Block,-,-,10.0.0.220/32,10.0.1.34/32,6,-,8510,Block hq5 to us4
