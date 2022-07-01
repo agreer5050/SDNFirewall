@@ -24,5 +24,26 @@
 # subnet other than /32 must be 0.
 #
 # Example Rules:
-1,Block,-,-,10.0.0.1/32,10.0.1.0/24,6,-,80,Block 10.0.0.1 from accessing a web server on the 10.0.1.0/24 network
-2,Allow,-,-,10.0.0.1/32,10.0.1.125/32,6,-,80,Allow 10.0.0.1 to access a web server on 10.0.1.125 overriding previous rule
+#1,Block,-,-,10.0.0.1/32,10.0.1.0/24,6,-,80,Block 10.0.0.1 from accessing a web server on the 10.0.1.0/24 network
+#2,Allow,-,-,10.0.0.1/32,10.0.1.125/32,6,-,80,Allow 10.0.0.1 to access a web server on 10.0.1.125 overriding previous rule
+
+#################### Task 1 #####################
+# hq1
+1,Block,-,-,-,10.0.0.1/32,-,-,-,By default, block all traffic on hq1
+2,Allow,-,-,-,10.0.0.1/32,17,-,53,Allow all UDP/53 to hq1
+3,Allow,-,-,-,10.0.0.1/32,17,-,853,Allow all UDP/853 to hq1
+
+#hq2
+4,Block,-,-,-,10.0.0.2/32,-,-,-,By default, block all traffic on hq2
+
+5,Allow,-,-,10.0.1.0/24,10.0.0.1/32,17,-,53,Allow US subnet to use UDP/53 on hq2
+6,Allow,-,-,10.0.30.0/24,10.0.0.1/32,17,-,53,Allow CN subnet to use UDP/53 on hq2
+7,Allow,-,-,10.0.20.0/24,10.0.0.1/32,17,-,53,Allow IN subnet to use UDP/53 on hq2
+8,Allow,-,-,10.0.40.0/24,10.0.0.1/32,17,-,53,Allow UI subnet to use UDP/53 on hq2
+8,Allow,-,-,10.0.0.0/24,10.0.0.1/32,17,-,53,Allow HQ subnet to use UDP/53 on hq2
+
+10,Allow,-,-,10.0.1.0/24,10.0.0.1/32,17,-,853,Allow US subnet to use UDP/853 on hq2
+11,Allow,-,-,10.0.30.0/24,10.0.0.1/32,17,-,853,Allow CN subnet to use UDP/853 on hq2
+12,Allow,-,-,10.0.20.0/24,10.0.0.1/32,17,-,853,Allow IN subnet to use UDP/853 on hq2
+13,Allow,-,-,10.0.40.0/24,10.0.0.1/32,17,-,853,Allow UI subnet to use UDP/853 on hq2
+14,Allow,-,-,10.0.0.0/24,10.0.0.1/32,17,-,853,Allow HQ subnet to use UDP/853 on hq2

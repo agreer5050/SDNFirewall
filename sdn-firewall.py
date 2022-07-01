@@ -39,12 +39,66 @@ def firewall_policy_processing(policies):
 
     rules = []
 
+    priorityBlock = 100
+    priorityAllow = 20000
     for policy in policies:
         # Enter your code here to implement matching and block/allow rules.  See the links
         # in Implementation Hints on how to do this. 
         # HINT:  Think about how to use the priority in your flow modification.
 
-        rule = None # Please note that you need to redefine this variable below to create a valid POX Flow Modification Object
+        # policy[‘mac-src’] = Source MAC Address (00:00:00:00:00:00)
+        # policy[‘mac-dst’] = Destination MAC Address (00:00:00:00:00:00)
+        # policy[‘ip-src’] = Source IP Address (10.0.1.1/32)
+        # policy[‘ip-src-address'] = Source IP Address part (10.0.1.1)
+        # policy[‘ip-src-subnet'] = Source IP Address subnet (32)
+        # policy[‘ip-dst’] = Destination IP Address (10.0.1.1/32)
+        # policy[‘ip-dst-address'] = Destination IP Address part (10.0.1.1)
+        # policy[‘ip-dst-subnet'] = Destination IP Address subnet (32)
+        # policy[‘ipprotocol’] = IP Protocol (6 for TCP)
+        # policy[‘port-src’] = Source Port for TCP/UDP (12000)
+        # policy[‘port-dst’] = Destination Port for TCP/UDP (80)
+        # policy[‘rulenum’] = Rule Number (1)
+        # policy[‘comment’] = Comment (Example Rule)
+        # policy[‘action’] = Allow or Block
+        # Please note that all fields are strings and may contain a ‘-‘ character.
+
+        rule = of.ofp_flow_mod() # Please note that you need to redefine this variable below to create a valid POX Flow Modification Object
+
+        if policy['action'] == 'Allow':
+            rule.priority = priorityAllow
+            priorityAllow += 100
+        elif policy['action'] == 'Block':
+            rule.priority = priorityBlock
+            priorityBlock += 100
+
+        rule.match.dl_type = 0x800
+        #rule.match.nw_tos = 
+
+        if policy['mac-src'] != '-':
+            rule.match.dl_src = policy['mac-src']
+        if policy['mac-dst'] != '-':
+            rule.match.dl_dst = policy['mac-dst']
+        if policy['ip-src'] != '-':
+            rule.match.nw_src = policy['ip-src']
+        if policy['ip-dst'] != '-':
+            rule.match.nw_dst = policy['ip-dst']
+        if policy['ipprotocol'] != '-':
+            rule.match.nw_proto = policy['ipprotocol']
+        if policy['port-src'] != '-':
+            rule.match.tp_src = policy['port-src']
+        if policy['port-dst'] != '-':
+            rule.match.tp_dst = policy['port-dst']
+        #if policy['ip-src-address’'] != '-':
+        #if policy['ip-src-subnet'] != '-':
+        #if policy['ip-dst-subnet'] != '-':
+        #if policy['rulenum'] != '-':
+        #if policy['comment'] != '-':
+
+        if policy['action'] == 'Allow':
+            rule.actions.append(of.ofp_action_optput(port=of.OFPP_NORMAL))
+        elif policy['action'] == 'Block':
+            rule.actions.append(of.ofp_action_optput(port=of.OFPP_IN_PORT))
+
 
 
         # End Code Here
