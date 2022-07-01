@@ -71,8 +71,8 @@ def firewall_policy_processing(policies):
             rule.priority = priorityBlock
             priorityBlock += 10
 
-        rule.match.dl_type = 0x800
-        rule.match.nw_tos = (0x2e << 2)
+        rule.match.dl_type = 0x0800
+        #rule.match.nw_tos = 4
 
         if policy['mac-src'] != '-':
             rule.match.dl_src = policy['mac-src']
@@ -90,15 +90,16 @@ def firewall_policy_processing(policies):
             rule.match.tp_dst = int(policy['port-dst'])
         #if policy['ip-src-address’'] != '-':
         #if policy['ip-src-subnet'] != '-':
+        #if policy['ip-dst-address'] != '-':
         #if policy['ip-dst-subnet'] != '-':
         #if policy['rulenum'] != '-':
         #if policy['comment'] != '-':
 
+        #rule.actions.append(of.ofp_action_output(port=of.OFPP_IN_PORT))
         if policy['action'] == 'Allow':
             rule.actions.append(of.ofp_action_output(port=of.OFPP_NORMAL))
-        elif policy['action'] == 'Block':
-            print(rule)
-            rule.actions.append(of.ofp_action_output(port=of.OFPP_IN_PORT))
+        #elif policy['action'] == 'Block':
+            #rule.actions.append(of.ofp_action_output(port=of.OFPP_IN_PORT))
 
 
 
